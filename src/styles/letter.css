@@ -1,0 +1,83 @@
+@media print {
+  #letter-content {
+    padding: 0;
+    margin: 0;
+    background: white;
+  }
+
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .attachment-preview {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}
+
+#letter-content {
+  font-size: 12pt;
+  line-height: 1.6;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#letter-content .address {
+  margin-bottom: 2rem;
+}
+
+#letter-content .divider {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid #000;
+}
+
+#letter-content .recipient-section {
+  margin-bottom: 2rem;
+}
+
+#letter-content .date {
+  margin-bottom: 1.5rem;
+}
+
+#letter-content .subject {
+  margin: 2rem 0;
+  font-weight: bold;
+}
+
+#letter-content .content {
+  margin: 1rem 0;
+  text-align: justify;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+#letter-content .signature {
+  margin-top: 1.5rem;
+}
+
+#letter-content strong {
+  font-weight: bold;
+}
+
+#letter-content .signature img {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 5px;
+  mix-blend-mode: multiply;
+}
+
+#letter-content .signature .placeholder {
+  color: #666;
+  margin-top: 0.25rem;
+  margin-bottom: 5px;
+}
+
+.page-break-before {
+  page-break-before: always;
+  margin-top: 2rem;
+} 

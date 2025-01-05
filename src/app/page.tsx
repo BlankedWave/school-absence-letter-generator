@@ -1,101 +1,144 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { LetterForm } from "./letter-form"
+import { LetterPreview } from "./letter-preview"
+import { DEFAULT_TEMPLATE_SECTIONS, DEFAULT_CONTENT, getInitialFormData } from "@/lib/constants"
+import type { FormData, Language, TemplateSection } from "@/types"
+import { t } from "@/lib/translations"
+
+const STORAGE_KEY = 'letter_form_data'
+
+export default function Page() {
+  const [language, setLanguage] = useState<Language>("malay")
+  const [formData, setFormData] = useState<FormData>(() => {
+    // Try to get saved data from localStorage
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved)
+          return parsed
+        } catch (e) {
+          console.error('Failed to parse saved form data:', e)
+        }
+      }
+    }
+    return getInitialFormData(language)
+  })
+  const [templateSections] = useState<TemplateSection[]>(DEFAULT_TEMPLATE_SECTIONS)
+
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      contents: prev.contents.map((content, index) => {
+        if (index === 0 && (
+          content === DEFAULT_CONTENT.malay ||
+          content === DEFAULT_CONTENT.english
+        )) {
+          return DEFAULT_CONTENT[language]
+        }
+        return content
+      })
+    }))
+  }, [language])
+
+  // Save to localStorage whenever form data changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(formData))
+    }
+  }, [formData])
+
+  const handleFormChange = (data: Partial<FormData>) => {
+    setFormData(prev => ({ ...prev, ...data }))
+  }
+
+  const handleClearForm = () => {
+    setFormData(getInitialFormData(language))
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEY)
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="max-w-7xl mx-auto p-4 space-y-8">
+      {/* Header Section */}
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-bold">
+          {t("systemTitle", language)}
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          {t("systemDescription", language)}
+        </p>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Language Selection */}
+      <Card className="w-full max-w-xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-xl">
+            {t("languageSelection", language)}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              variant={language === "malay" ? "default" : "outline"}
+              onClick={() => setLanguage("malay")}
+              className="h-16 text-lg"
+            >
+              {t("malayLanguage", language)}
+            </Button>
+            <Button
+              variant={language === "english" ? "default" : "outline"}
+              onClick={() => setLanguage("english")}
+              className="h-16 text-lg"
+            >
+              {t("englishLanguage", language)}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
+        <div className="space-y-4">
+          <LetterForm
+            language={language}
+            formData={formData}
+            onFormChange={handleFormChange}
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClearForm}
+            className="text-muted-foreground hover:text-destructive w-full border border-dashed border-muted-foreground/50 hover:border-destructive hover:bg-destructive/5"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {t("clearForm", language)}
+          </Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        {/* Desktop Preview */}
+        <div className="hidden lg:block">
+          <div className="sticky top-4">
+            <LetterPreview
+              language={language}
+              formData={formData}
+              templateSections={templateSections}
+            />
+          </div>
+        </div>
+
+        {/* Mobile Preview */}
+        <div className="lg:hidden space-y-6">
+          <LetterPreview
+            language={language}
+            formData={formData}
+            templateSections={templateSections}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
