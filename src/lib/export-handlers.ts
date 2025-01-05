@@ -19,6 +19,21 @@ const fileToBlob = async (file: File): Promise<Blob> => {
   return new Blob([await file.arrayBuffer()], { type: file.type });
 };
 
+const defaultPdfOptions = {
+  margin: [15, 15],
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { 
+    scale: 2,
+    useCORS: true,
+    letterRendering: true,
+  },
+  jsPDF: { 
+    unit: 'mm', 
+    format: 'a4', 
+    orientation: 'portrait'
+  }
+};
+
 export const exportToPdf = async (elementId: string) => {
   if (typeof window === 'undefined') return;
   
@@ -27,8 +42,7 @@ export const exportToPdf = async (elementId: string) => {
   try {
     const letterElement = document.getElementById('letter-content');
     if (!letterElement) {
-      toast.error('Could not find letter content', { id: toastId });
-      return;
+      throw new Error('Could not find letter content');
     }
 
     const isEnglish = letterElement.innerHTML.includes('NOTIFICATION OF SCHOOL ABSENCE');
@@ -54,29 +68,15 @@ export const exportToPdf = async (elementId: string) => {
 
     toast.loading('Converting letter to PDF...', { id: toastId });
     
-    const letterPdfBlob = await htmlToPdfBlob(letterElement, {
-      margin: [15, 15],
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-      },
-      jsPDF: { 
-        unit: 'mm', 
-        format: 'a4', 
-        orientation: 'portrait'
-      }
-    });
+    const letterPdfBlob = await htmlToPdfBlob(letterElement, defaultPdfOptions);
     await merger.add(letterPdfBlob);
 
     const fileInput = document.querySelectorAll('input[type="file"]')[0] as HTMLInputElement;
     const attachments = fileInput?.files;
-    if (attachments && attachments.length > 0) {
+    if (attachments?.length) {
       toast.loading('Processing attachments...', { id: toastId });
       
-      for (let i = 0; i < attachments.length; i++) {
-        const file = attachments[i];
+      for (const file of Array.from(attachments)) {
         if (file.type === 'application/pdf') {
           const pdfBlob = await fileToBlob(file);
           await merger.add(pdfBlob);
@@ -87,20 +87,9 @@ export const exportToPdf = async (elementId: string) => {
           img.style.maxWidth = '100%';
           imgContainer.appendChild(img);
           
-          const imgPdfBlob = await htmlToPdfBlob(imgContainer, {
-            margin: [15, 15],
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
-              scale: 2,
-              useCORS: true,
-            },
-            jsPDF: { 
-              unit: 'mm', 
-              format: 'a4', 
-              orientation: 'portrait'
-            }
-          });
+          const imgPdfBlob = await htmlToPdfBlob(imgContainer, defaultPdfOptions);
           await merger.add(imgPdfBlob);
+          URL.revokeObjectURL(img.src);
         }
       }
     }
@@ -111,6 +100,6 @@ export const exportToPdf = async (elementId: string) => {
 
   } catch (error) {
     console.error('Error generating PDF:', error);
-    toast.error('Failed to generate PDF', { id: toastId });
+    toast.error(error instanceof Error ? error.message : 'Failed to generate PDF', { id: toastId });
   }
 } 
