@@ -4,7 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # testing
 /coverage
@@ -12,6 +18,7 @@
 # next.js
 /.next/
 /out/
+next.config.ts
 
 # production
 /build
@@ -50,3 +57,9 @@ next-env.d.ts
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
