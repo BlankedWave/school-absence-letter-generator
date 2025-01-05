@@ -3,6 +3,7 @@ import { t } from "@/lib/translations"
 import type { FormData, TemplateSection } from "@/types"
 import { MalayLetterTemplate, EnglishLetterTemplate } from "@/lib/letter-templates"
 import { LetterExport } from "./letter-export"
+import Image from "next/image"
 import "@/styles/letter.css"
 
 interface LetterPreviewProps {
@@ -33,9 +34,13 @@ export function LetterPreview({
                 )}
                 {formData.signature && (
                   <div className="signature">
-                    <img 
-                      src={formData.signature} 
+                    <Image 
+                      src={formData.signature}
                       alt="signature"
+                      width={120}
+                      height={60}
+                      className="mix-blend-multiply"
+                      unoptimized
                     />
                     <div>
                       ({formData.parentName.trim() ? formData.parentName : t("placeholderParentName", language)})
