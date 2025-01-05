@@ -3,7 +3,7 @@ export interface TemplateSection {
   label: { malay: string; english: string }
   defaultText: { malay: string; english: string }
   content: string
-  paragraphs: any[]
+  paragraphs: string[]
 }
 
 export interface FormData {
