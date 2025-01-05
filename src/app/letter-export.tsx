@@ -7,15 +7,14 @@ import { isLetterValid } from "@/lib/utils"
 interface LetterExportProps {
   language: "malay" | "english"
   formData: FormData
-  templateSections: TemplateSection[]
 }
 
-export function LetterExport({ language, formData, templateSections }: LetterExportProps) {
+export function LetterExport({ language, formData }: LetterExportProps) {
   const isValid = isLetterValid(formData);
 
   const handlePdfExport = async () => {
     if (!isValid) return;
-    await exportToPdf('letter-content');
+    await exportToPdf();
   };
 
   return (
