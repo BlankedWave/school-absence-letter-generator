@@ -16,7 +16,7 @@ A bilingual (Malay/English) web application to generate school absence letters w
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/HachiroSan/school-absensce-letter-generator
 ```
 
 2. Install dependencies:
