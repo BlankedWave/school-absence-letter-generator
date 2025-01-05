@@ -3,6 +3,7 @@
 import PDFMerger from 'pdf-merger-js';
 import { toast } from 'sonner';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let html2pdf: any;
 
 if (typeof window !== 'undefined') {
@@ -11,7 +12,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-const htmlToPdfBlob = async (element: HTMLElement, options: any): Promise<Blob> => {
+const htmlToPdfBlob = async (element: HTMLElement, options: typeof defaultPdfOptions): Promise<Blob> => {
   return await html2pdf().set(options).from(element).output('blob');
 };
 
@@ -32,9 +33,9 @@ const defaultPdfOptions = {
     format: 'a4', 
     orientation: 'portrait'
   }
-};
+} as const;
 
-export const exportToPdf = async (elementId: string) => {
+export const exportToPdf = async () => {
   if (typeof window === 'undefined') return;
   
   const toastId = toast.loading('Preparing your PDF...');
