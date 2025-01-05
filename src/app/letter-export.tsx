@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { t } from "@/lib/translations"
-import type { FormData, TemplateSection } from "@/types"
+import type { FormData } from "@/types"
 import { exportToPdf } from "@/lib/export-handlers"
 import { isLetterValid } from "@/lib/utils"
 
