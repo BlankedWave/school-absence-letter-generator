@@ -2,6 +2,8 @@
 
 A bilingual (Malay/English) web application to generate school absence letters with a clean, user-friendly interface.
 
+Preview: https://school-absensce-letter-generator.vercel.app/
+
 ## Features
 
 - 🌐 Bilingual support (Malay and English)
