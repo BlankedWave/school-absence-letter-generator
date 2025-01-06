@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/ui/date-picker"
-import { DateRangePicker } from "@/components/ui/date-range-picker"
 import {
   Select,
   SelectContent,
@@ -280,22 +279,24 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
                   placeholder={t("date", language)}
                 />
               ) : (
-                <DateRangePicker
-                  dateRange={formData.startDate && formData.endDate ? {
-                    from: new Date(formData.startDate),
-                    to: new Date(formData.endDate)
-                  } : undefined}
-                  onSelect={(range) => {
-                    if (range?.from && range?.to) {
-                      onFormChange({
-                        startDate: range.from.toISOString().split('T')[0],
-                        endDate: range.to.toISOString().split('T')[0]
-                      })
-                    }
-                  }}
-                  placeholder={t("dateRange", language)}
-                  align="start"
-                />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label className="text-base">{t("from", language)}</Label>
+                    <DatePicker
+                      date={formData.startDate ? new Date(formData.startDate) : undefined}
+                      onSelect={(date) => onFormChange({ startDate: date?.toISOString().split('T')[0] })}
+                      placeholder={t("from", language)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-base">{t("to", language)}</Label>
+                    <DatePicker
+                      date={formData.endDate ? new Date(formData.endDate) : undefined}
+                      onSelect={(date) => onFormChange({ endDate: date?.toISOString().split('T')[0] })}
+                      placeholder={t("to", language)}
+                    />
+                  </div>
+                </div>
               )}
             </div>
           </div>
