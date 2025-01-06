@@ -25,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        
           {children}
+          <Analytics />
           <Toaster richColors position="bottom-right" />
           <footer className="py-6 md:px-8 md:py-0 mt-8">
             <div className="container flex flex-col items-center gap-4 md:h-16 md:flex-row md:justify-end">
