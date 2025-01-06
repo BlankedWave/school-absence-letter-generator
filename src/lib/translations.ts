@@ -63,8 +63,6 @@ type TranslationKey =
   | "privacyNotice"
   | "openSourceNotice"
   | "reportBug"
-  | "contactEmail"
-  | "buyMeCoffee"
 
 /** Translation object type with malay and english versions for each key */
 type Translations = {
@@ -327,10 +325,6 @@ export const translations: Translations = {
   reportBug: {
     malay: "Laporkan Pepijat",
     english: "Report Bug"
-  },
-  buyMeCoffee: {
-    malay: "Kirim kopi kepada saya",
-    english: "Buy me a coffee"
   }
 };
 
