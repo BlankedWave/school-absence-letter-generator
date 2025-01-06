@@ -60,6 +60,7 @@ type TranslationKey =
   | "placeholderSignature"
   | "fillRequiredFields"
   | "clearForm"
+  | "privacyNotice"
 
 /** Translation object type with malay and english versions for each key */
 type Translations = {
@@ -310,6 +311,10 @@ export const translations: Translations = {
   clearForm: {
     malay: "Kosongkan Borang",
     english: "Clear Form"
+  },
+  privacyNotice: {
+    malay: "🔒 Semua data diproses secara lokal di pelayar anda. Tiada maklumat disimpan di mana-mana pelayan.",
+    english: "🔒 All data is processed locally in your browser. No information is stored on any server."
   }
 };
 

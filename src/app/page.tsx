@@ -73,6 +73,9 @@ export default function Page() {
         <p className="text-muted-foreground text-lg">
           {t("systemDescription", language)}
         </p>
+        <p className="text-sm text-muted-foreground">
+          {t("privacyNotice", language)}
+        </p>
       </div>
 
       {/* Language Selection */}
