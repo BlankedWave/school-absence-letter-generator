@@ -110,7 +110,7 @@ export function MalayLetterTemplate({ data, sections }: LetterTemplateProps) {
       </div>
 
       <div className="content">
-        Merujuk kepada perkara diatas, saya, {getFieldWithPlaceholder(data.parentName, "nama ibu/bapa")}, ibu/bapa/penjaga kepada <strong>{getFieldWithPlaceholder(data.studentName, "nama pelajar")}</strong> dari kelas <strong>{getFieldWithPlaceholder(data.className, "kelas")}</strong> ingin menjelaskan sebab anak jagaan saya tidak dapat menghadirkan diri ke sekolah pada {dateText}.
+        Merujuk kepada perkara diatas, saya, <strong>{getFieldWithPlaceholder(data.parentName, "nama ibu/bapa")}</strong>, ibu/bapa/penjaga kepada <strong>{getFieldWithPlaceholder(data.studentName, "nama pelajar")}</strong> dari kelas <strong>{getFieldWithPlaceholder(data.className, "kelas")}</strong> ingin menjelaskan sebab anak jagaan saya tidak dapat menghadirkan diri ke sekolah pada {dateText}.
       </div>
 
       {data.contents.map((content: string, index: number) => (
