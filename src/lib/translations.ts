@@ -61,6 +61,10 @@ type TranslationKey =
   | "fillRequiredFields"
   | "clearForm"
   | "privacyNotice"
+  | "openSourceNotice"
+  | "reportBug"
+  | "contactEmail"
+  | "buyMeCoffee"
 
 /** Translation object type with malay and english versions for each key */
 type Translations = {
@@ -315,6 +319,18 @@ export const translations: Translations = {
   privacyNotice: {
     malay: "🔒 Semua data diproses secara lokal di pelayar anda. Tiada maklumat disimpan di mana-mana pelayan.",
     english: "🔒 All data is processed locally in your browser. No information is stored on any server."
+  },
+  openSourceNotice: {
+    malay: "Projek sumber terbuka ini boleh didapati di",
+    english: "This open source project is available on"
+  },
+  reportBug: {
+    malay: "Laporkan Pepijat",
+    english: "Report Bug"
+  },
+  buyMeCoffee: {
+    malay: "Kirim kopi kepada saya",
+    english: "Buy me a coffee"
   }
 };
 
