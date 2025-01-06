@@ -40,6 +40,9 @@ const malayMonths = [
 ];
 
 const formatDate = (dateString: string, language: "malay" | "english" = "malay"): string => {
+  if (!dateString) {
+    return "[tarikh surat]"
+  }
   const date = new Date(dateString)
   const day = date.getDate()
   const month = language === "malay" 
@@ -54,6 +57,19 @@ const getFieldWithPlaceholder = (value: string, placeholder: string) => {
   return value.trim() ? value : `[${placeholder}]`
 }
 
+// Helper function to format absence date text
+const getAbsenceDateText = (data: LetterData, language: "malay" | "english"): string => {
+  if (data.dateType === "single") {
+    return data.singleDate ? formatDate(data.singleDate, language) : language === "malay" ? "[tarikh]" : "[date]"
+  }
+  
+  const startText = data.startDate ? formatDate(data.startDate, language) : language === "malay" ? "[tarikh mula]" : "[start date]"
+  const endText = data.endDate ? formatDate(data.endDate, language) : language === "malay" ? "[tarikh akhir]" : "[end date]"
+  const connector = language === "malay" ? "hingga" : "to"
+  
+  return `${startText} ${connector} ${endText}`
+}
+
 interface LetterTemplateProps {
   data: LetterData
   sections: TemplateSection[]
@@ -64,11 +80,8 @@ export function MalayLetterTemplate({ data, sections }: LetterTemplateProps) {
   const school = getFieldWithPlaceholder(data.schoolName, "nama sekolah")
   const closing = sections.find(s => s.id === "closing")
   
-  const dateText = data.dateType === "single" 
-    ? formatDate(data.singleDate, "malay")
-    : `${formatDate(data.startDate, "malay")} hingga ${formatDate(data.endDate, "malay")}`
-
-  const date = formatDate(data.letterDate, "malay")
+  const dateText = getAbsenceDateText(data, "malay")
+  const letterDate = data.letterDate ? formatDate(data.letterDate, "malay") : "[tarikh surat]"
 
   return (
     <>
@@ -91,13 +104,13 @@ export function MalayLetterTemplate({ data, sections }: LetterTemplateProps) {
               {getFieldWithPlaceholder(data.schoolPostcode, "poskod")}, {getFieldWithPlaceholder(data.schoolCity, "bandar")}<br />
               <div className="flex justify-between">
                 <div>{getFieldWithPlaceholder(data.schoolState, "negeri")}</div>
-                <div className="date">{date}</div>
+                <div className="date">{letterDate}</div>
               </div>
             </>
           ) : (
             <div className="flex justify-between">
               <div>{school}</div>
-              <div className="date">{date}</div>
+              <div className="date">{letterDate}</div>
             </div>
           )}
         </div>
@@ -139,11 +152,8 @@ export function EnglishLetterTemplate({ data, sections }: LetterTemplateProps) {
   const school = getFieldWithPlaceholder(data.schoolName, "school name")
   const closing = sections.find(s => s.id === "closing")
   
-  const dateText = data.dateType === "single" 
-    ? formatDate(data.singleDate, "english")
-    : `${formatDate(data.startDate, "english")} to ${formatDate(data.endDate, "english")}`
-
-  const date = formatDate(data.letterDate, "english")
+  const dateText = getAbsenceDateText(data, "english")
+  const letterDate = data.letterDate ? formatDate(data.letterDate, "english") : "[letter date]"
 
   return (
     <>
@@ -166,13 +176,13 @@ export function EnglishLetterTemplate({ data, sections }: LetterTemplateProps) {
               {getFieldWithPlaceholder(data.schoolPostcode, "postcode")}, {getFieldWithPlaceholder(data.schoolCity, "city")}<br />
               <div className="flex justify-between">
                 <div>{getFieldWithPlaceholder(data.schoolState, "state")}</div>
-                <div className="date">{date}</div>
+                <div className="date">{letterDate}</div>
               </div>
             </>
           ) : (
             <div className="flex justify-between">
               <div>{school}</div>
-              <div className="date">{date}</div>
+              <div className="date">{letterDate}</div>
             </div>
           )}
         </div>
