@@ -48,9 +48,40 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
       {/* Parent's Address Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl flex items-center gap-2">
-            <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">1</span>
-            {t("senderAddress", language)}
+          <CardTitle className="text-xl flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">1</span>
+              {t("senderAddress", language)}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onFormChange({
+                parentName: "",
+                address: "",
+                postcode: "",
+                city: "",
+                state: ""
+              })}
+              className="text-xs text-muted-foreground hover:text-destructive border-muted-foreground/30 hover:border-destructive/50 hover:bg-transparent flex items-center gap-1.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 6h18" />
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              </svg>
+              {t("clearForm", language)}
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -118,9 +149,42 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
       {/* School's Address Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl flex items-center gap-2">
-            <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">2</span>
-            {t("schoolInfo", language)}
+          <CardTitle className="text-xl flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">2</span>
+              {t("schoolInfo", language)}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onFormChange({
+                teacherName: "",
+                schoolName: "",
+                schoolAddress: "",
+                schoolPostcode: "",
+                schoolCity: "",
+                schoolState: "",
+                includeSchoolAddress: false
+              })}
+              className="text-xs text-muted-foreground hover:text-destructive border-muted-foreground/30 hover:border-destructive/50 hover:bg-transparent flex items-center gap-1.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 6h18" />
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              </svg>
+              {t("clearForm", language)}
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -218,9 +282,43 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
       {/* Letter Information Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl flex items-center gap-2">
-            <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">3</span>
-            {t("letterInfo", language)}
+          <CardTitle className="text-xl flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">3</span>
+              {t("letterInfo", language)}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onFormChange({
+                studentName: "",
+                className: "",
+                dateType: "single",
+                singleDate: "",
+                startDate: "",
+                endDate: "",
+                contents: [""],
+                letterDate: ""
+              })}
+              className="text-xs text-muted-foreground hover:text-destructive border-muted-foreground/30 hover:border-destructive/50 hover:bg-transparent flex items-center gap-1.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 6h18" />
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              </svg>
+              {t("clearForm", language)}
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">

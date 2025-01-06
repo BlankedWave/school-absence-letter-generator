@@ -311,7 +311,7 @@ export const translations: Translations = {
     english: "Please fill in all required fields to generate the letter"
   },
   clearForm: {
-    malay: "Kosongkan Borang",
+    malay: "Kosongkan Form",
     english: "Clear Form"
   },
   privacyNotice: {

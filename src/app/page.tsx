@@ -114,14 +114,6 @@ export default function Page() {
               formData={formData}
               onFormChange={handleFormChange}
             />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClearForm}
-              className="text-muted-foreground hover:text-destructive w-full border border-dashed border-muted-foreground/50 hover:border-destructive hover:bg-destructive/5"
-            >
-              {t("clearForm", language)}
-            </Button>
           </div>
 
           {/* Desktop Preview */}
