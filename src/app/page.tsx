@@ -57,13 +57,6 @@ export default function Page() {
     setFormData(prev => ({ ...prev, ...data }))
   }
 
-  const handleClearForm = () => {
-    setFormData(getInitialFormData(language))
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(STORAGE_KEY)
-    }
-  }
-
   return (
     <main>
       <div className="max-w-7xl mx-auto p-4 space-y-8">
