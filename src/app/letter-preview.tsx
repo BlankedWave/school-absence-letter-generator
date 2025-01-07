@@ -25,7 +25,7 @@ export function LetterPreview({
       <CardContent>
         <div className="bg-gray-50 px-2 py-4 rounded-lg">
           <div className="bg-white shadow-lg p-8">
-            <div id="letter-content" className="w-full max-w-[24cm] mx-auto bg-white mb-4 [&_*]:text-sm"> # override font size
+            <div id="letter-content" className="w-full max-w-[24cm] mx-auto bg-white mb-4 [&_*]:text-sm">
               <div className="space-y-6">
                 {language === "malay" ? (
                   <MalayLetterTemplate data={formData} sections={templateSections} />
