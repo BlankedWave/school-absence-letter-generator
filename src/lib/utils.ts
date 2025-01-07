@@ -16,6 +16,7 @@ export function isLetterValid(formData: FormData): boolean {
     formData.schoolName,
     formData.studentName,
     formData.className,
+    formData.letterDate,
   ];
 
   // Check if all required fields are filled
