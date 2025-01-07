@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/ui/date-picker"
-import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Select,
   SelectContent,
@@ -537,28 +537,48 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
       {/* Signature Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">5</span>
-              <div className="flex items-center gap-4">
-                {t("signature", language)}
-                <Switch
-                  checked={formData.signatureType === "digital"}
-                  onCheckedChange={(checked) => 
-                    onFormChange({ 
-                      signatureType: checked ? "digital" : "manual",
-                      signature: checked ? formData.signature : ""
-                    })
-                  }
-                />
-                <span className="text-sm text-muted-foreground">
-                  {formData.signatureType === "digital" ? t("digitalSignature", language) : t("manualSignature", language)}
-                </span>
-              </div>
-            </div>
+          <CardTitle className="text-xl flex items-center gap-2">
+            <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">5</span>
+            {t("signature", language)}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
+          <Tabs
+            value={formData.signatureType}
+            onValueChange={(value) => 
+              onFormChange({ 
+                signatureType: value as "digital" | "manual",
+                signature: value === "digital" ? formData.signature : ""
+              })
+            }
+            className="w-full"
+          >
+            <TabsList className="grid w-full grid-cols-2 h-auto">
+              <TabsTrigger 
+                value="digital"
+                className="text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex flex-col py-3 px-2 h-auto"
+              >
+                <div className="flex flex-col items-center gap-1.5">
+                  <span className="text-2xl">✍️</span>
+                  <span className="text-sm sm:text-base text-center whitespace-normal leading-tight">
+                    {t("digitalSignature", language)}
+                  </span>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="manual"
+                className="text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex flex-col py-3 px-2 h-auto"
+              >
+                <div className="flex flex-col items-center gap-1.5">
+                  <span className="text-2xl">📝</span>
+                  <span className="text-sm sm:text-base text-center whitespace-normal leading-tight">
+                    {t("manualSignature", language)}
+                  </span>
+                </div>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+
           {formData.signatureType === "digital" && (
             <SignatureCanvas
               onSave={(signature) => onFormChange({ signature })}
@@ -566,7 +586,7 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
             />
           )}
           {formData.signatureType === "manual" && (
-            <div className="text-muted-foreground italic">
+            <div className="text-muted-foreground italic bg-muted/50 p-4 rounded-lg text-center">
               {t("manualSignatureNote", language)}
             </div>
           )}
