@@ -30,6 +30,10 @@ type TranslationKey =
   | "downloadDocx"
   | "downloadPdf"
   | "letterTitle"
+  | "selectSignatureType"
+  | "digitalSignature"
+  | "manualSignature"
+  | "manualSignatureNote"
   | "placeholderParentName"
   | "placeholderAddress"
   | "placeholderPostcode"
@@ -193,6 +197,22 @@ export const translations: Translations = {
   letterTitle: {
     malay: "Surat Tidak Hadir ke Sekolah",
     english: "School Absence Letter"
+  },
+  selectSignatureType: {
+    malay: "Pilih jenis tandatangan",
+    english: "Select signature type"
+  },
+  digitalSignature: {
+    malay: "Tandatangan digital",
+    english: "Digital signature"
+  },
+  manualSignature: {
+    malay: "Tandatangan manual",
+    english: "Manual signature"
+  },
+  manualSignatureNote: {
+    malay: "Ruang tandatangan akan dibiarkan kosong untuk ditandatangani secara manual selepas mencetak",
+    english: "Signature space will be left blank for manual signing after printing"
   },
   placeholderParentName: {
     malay: "nama ibu/bapa",

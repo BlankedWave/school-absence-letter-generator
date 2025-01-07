@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import SignaturePad from 'signature_pad'
 import { Button } from '../components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { t } from "@/lib/translations"
 
 interface SignatureCanvasProps {
@@ -106,59 +105,41 @@ export function SignatureCanvas({ onSave, language }: SignatureCanvasProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2">
-          <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">5</span>
-          {t("signature", language)}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="border rounded-lg bg-white relative h-[200px] w-full">
-          {!isSaved && (
-            <div 
-              ref={signatureBoxRef}
-              className="absolute inset-[20%] border-2 border-dashed border-gray-300 pointer-events-none flex items-center justify-center"
-              style={{ zIndex: 1 }}
-            >
-              <span className="text-gray-400 text-sm">
-                {t("signHere", language)}
-              </span>
+    <div className="space-y-4">
+      <div className="relative border rounded-lg">
+        <canvas
+          ref={canvasRef}
+          className="w-full touch-none"
+          style={{ height: '200px' }}
+        />
+        <div
+          ref={signatureBoxRef}
+          className="absolute inset-[20%] border-2 border-dashed border-gray-300 pointer-events-none"
+        >
+          {isEmpty && (
+            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+              {t("signHere", language)}
             </div>
           )}
-          <canvas
-            ref={canvasRef}
-            style={{
-              width: '100%',
-              height: '100%',
-              touchAction: 'none',
-              position: 'relative',
-              zIndex: 0,
-              pointerEvents: isSaved ? 'none' : 'auto'
-            }}
-          />
         </div>
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={clear}
-            className="flex-1"
-          >
-            {isSaved ? "Edit" : t("clearSignature", language)}
-          </Button>
-          {!isSaved && (
-            <Button
-              type="button"
-              onClick={save}
-              disabled={isEmpty}
-              className="flex-1"
-            >
-              {t("saveSignature", language)}
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex justify-between">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={clear}
+          disabled={isEmpty}
+        >
+          {t("clearSignature", language)}
+        </Button>
+        <Button
+          type="button"
+          onClick={save}
+          disabled={isEmpty || isSaved}
+        >
+          {t("saveSignature", language)}
+        </Button>
+      </div>
+    </div>
   )
 } 

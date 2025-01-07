@@ -25,33 +25,44 @@ export function LetterPreview({
       <CardContent>
         <div className="bg-gray-50 px-2 py-4 rounded-lg">
           <div className="bg-white shadow-lg p-8">
-            <div id="letter-content" className="w-full max-w-[24cm] mx-auto bg-white mb-4 [&_*]:text-sm">
+            <div id="letter-content" className="w-full max-w-[24cm] mx-auto bg-white mb-4 [&_*]:text-sm"> # override font size
               <div className="space-y-6">
                 {language === "malay" ? (
                   <MalayLetterTemplate data={formData} sections={templateSections} />
                 ) : (
                   <EnglishLetterTemplate data={formData} sections={templateSections} />
                 )}
-                {formData.signature && (
-                  <div className="signature">
-                    <Image 
-                      src={formData.signature}
-                      alt="signature"
-                      width={120}
-                      height={60}
-                      className="mix-blend-multiply"
-                      unoptimized
-                    />
-                    <div>
-                      ({formData.parentName.trim() ? formData.parentName : t("placeholderParentName", language)})
-                    </div>
-                  </div>
+                {formData.signatureType === "digital" && (
+                  <>
+                    {formData.signature ? (
+                      <div className="signature">
+                        <Image 
+                          src={formData.signature}
+                          alt="signature"
+                          width={120}
+                          height={60}
+                          className="mix-blend-multiply"
+                          unoptimized
+                        />
+                        <div>
+                          ({formData.parentName.trim() ? formData.parentName : t("placeholderParentName", language)})
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="signature">
+                        <div className="placeholder">
+                          {t("placeholderSignature", language)}
+                        </div>
+                        <div>
+                          ({formData.parentName.trim() ? formData.parentName : t("placeholderParentName", language)})
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
-                {!formData.signature && (
+                {formData.signatureType === "manual" && (
                   <div className="signature">
-                    <div className="placeholder">
-                      {t("placeholderSignature", language)}
-                    </div>
+                    <div className="h-[60px]"></div>
                     <div>
                       ({formData.parentName.trim() ? formData.parentName : t("placeholderParentName", language)})
                     </div>

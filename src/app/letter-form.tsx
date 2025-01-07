@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/ui/date-picker"
+import { Switch } from "@/components/ui/switch"
 import {
   Select,
   SelectContent,
@@ -533,11 +534,44 @@ export function LetterForm({ language, formData, onFormChange }: LetterFormProps
         </CardContent>
       </Card>
 
-      {/* Signature Canvas */}
-      <SignatureCanvas 
-        onSave={(signature) => onFormChange({ signature: signature || "" })}
-        language={language}
-      />
+      {/* Signature Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-xl flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center">5</span>
+              <div className="flex items-center gap-4">
+                {t("signature", language)}
+                <Switch
+                  checked={formData.signatureType === "digital"}
+                  onCheckedChange={(checked) => 
+                    onFormChange({ 
+                      signatureType: checked ? "digital" : "manual",
+                      signature: checked ? formData.signature : ""
+                    })
+                  }
+                />
+                <span className="text-sm text-muted-foreground">
+                  {formData.signatureType === "digital" ? t("digitalSignature", language) : t("manualSignature", language)}
+                </span>
+              </div>
+            </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {formData.signatureType === "digital" && (
+            <SignatureCanvas
+              onSave={(signature) => onFormChange({ signature })}
+              language={language}
+            />
+          )}
+          {formData.signatureType === "manual" && (
+            <div className="text-muted-foreground italic">
+              {t("manualSignatureNote", language)}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   )
 } 

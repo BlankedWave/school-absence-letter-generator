@@ -17,6 +17,7 @@ export interface FormData {
   singleDate: string
   startDate: string
   endDate: string
+  signatureType: "digital" | "manual"
   signature: string
   address: string
   postcode: string
