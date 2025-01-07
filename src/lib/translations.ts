@@ -199,32 +199,32 @@ export const translations: Translations = {
     english: "parent's name"
   },
   placeholderAddress: {
-    malay: "Contoh: No 70, Jalan Mega Jaya 1",
-    english: "Example: 70, Mega Jaya Street 1"
+    malay: "Contoh: No 70, Jalan Sungai Isap",
+    english: "Example: 70, Jalan Sungai Isap"
   },
   placeholderPostcode: {
-    malay: "43650",
-    english: "43650"
+    malay: "25150",
+    english: "25150"
   },
   placeholderCity: {
-    malay: "Bandar Baru Bangi",
-    english: "Bandar Baru Bangi"
+    malay: "Kuantan",
+    english: "Kuantan"
   },
   placeholderState: {
-    malay: "Selangor Darul Ehsan",
-    english: "Selangor Darul Ehsan"
+    malay: "Pahang Darul Makmur",
+    english: "Pahang Darul Makmur"
   },
   placeholderTeacherName: {
     malay: "Contoh: Puan Aminah",
     english: "Example: Mrs. Smith"
   },
   placeholderSchoolName: {
-    malay: "Contoh: SMK Seri Puteri",
-    english: "Example: St. Mary's School"
+    malay: "Contoh: SMK Bukit Rangin",
+    english: "Example: SK Sungai Isap"
   },
   placeholderSchoolAddress: {
-    malay: "Contoh: Jalan Raja Putra",
-    english: "Example: Raja Putra Street"
+    malay: "Contoh: Jalan Permatang Badak",
+    english: "Example: Permatang Badak"
   },
   placeholderStudentName: {
     malay: "Contoh: Ali bin Ahmad",
