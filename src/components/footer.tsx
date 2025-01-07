@@ -76,7 +76,7 @@ export function Footer({ language }: FooterProps) {
                   </svg>
                 </a>
               </p>
-              <p className="text-sm text-muted-foreground/60">
+              <p className="text-sm text-muted-foreground/60 text-center">
                 {language === "malay" ? (
                   <>
                     Sebarang idea dan cadangan, email saya di{" "}
